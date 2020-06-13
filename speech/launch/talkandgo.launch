@@ -1,0 +1,13 @@
+<launch>
+
+
+    <!--<node pkg="speech" name="talk" type="starttalk.py">
+    </node>-->
+
+ 
+    <node pkg="xfei_asr" type="en_iat_publish" name="en_iat_publish" output="screen"  required="true"/>
+
+    <node pkg="xfei_asr" type="en_voice_assistance" name="en_voice_assistance" output="screen"/>
+
+
+</launch>

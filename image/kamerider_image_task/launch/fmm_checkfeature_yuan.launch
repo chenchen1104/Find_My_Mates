@@ -1,0 +1,53 @@
+<launch>
+
+    <!--Using API to check wave-->
+    <node pkg="kamerider_image_api" name="wave_detect" type="wave_detect.py" required="true" output="screen">
+        <!--Output image-->
+        <remap from="/image/test"                   to="/image/test"/>
+        <!--Input image-->
+        <remap from="/usb_cam/image_raw"            to="/camera/rgb/image_raw"/>
+        <!--object postion in view-->
+        <remap from="roi"                           to="roi"/>
+        <!--check gender-->
+        <param name="check_gender"                  value="false"/>
+        <!--A path to save image-->
+        <param name="image_temp_save_path"          value="/home/qian/catkin_ws/src/fmm_src/kamerider_image/kamerider_image_api/imgfile/"/>
+    </node>
+
+    <!--Using OpenPose to check wave-->
+    <!--<node pkg="kamerider_image_openpose" name="wave_detect" type="openpose_wave_detect.py" required="false" >-->
+        <!--Output image-->
+        <!--<remap from="/openpose/img"                 to="/image/test"/>-->
+        <!--Input image-->
+        <!--<remap from="/usb_cam/image_raw"            to="/usb_cam/image_raw"/>-->
+        <!--object postion in view-->
+        <!--<remap from="/openpose/wave"                to="roi"/>-->
+    <!--</node>-->
+
+
+    <node pkg="kamerider_image_api" name="feature_detect" type="feature_detect.py">
+        <!--The feature of person-->
+        <remap from="/image/feature"                to="/image/people_feature"/>
+        <!--Input image-->
+        <remap from="/usb_cam/image_raw"            to="/camera/rgb/image_raw"/>
+        <!--THe postion of person in view-->
+        <remap from="roi"                           to="roi"/>
+
+        <!--A path to save image-->
+        <param name="image_temp_save_path"             value="/home/qian/catkin_ws/src/fmm_src/kamerider_image/kamerider_image_api/imgfile/"/>
+    </node>
+<!--
+    <node pkg="kamerider_image_api" name="turn_check" type="turn_robot.py">-->
+        <!--The region of interest-->
+        <!--<remap from="roi"                           to="roi"/>-->
+        <!--The speed-->
+<!--
+        <remap from="cmd_vel_mux/input/navi"        to="cmd_vel_mux/input/navi"/>
+    </node>
+-->
+
+
+    <node pkg="kamerider_image_api" name="take_photo" type="take_photo.py" output="screen"/>
+
+
+</launch>

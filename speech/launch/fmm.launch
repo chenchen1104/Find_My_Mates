@@ -1,0 +1,23 @@
+<launch>
+	<!-- pocketsphinx关键词识别-->
+	<arg name="dict" default="/home/qian/catkin_ws/src/fmm_src/speech/wakeup/7330.dic" />
+	<arg name="kws"  default="/home//qian/catkin_ws/src/fmm_src/speech/wakeup/wakeup.kwlist" />
+
+	<include file="$(find pocketsphinx)/launch/kws.launch">
+		<arg name="dict" value="$(arg dict)" />
+		<arg name="kws"  value="$(arg kws)" />
+	</include>
+
+	<!-- 启动科大讯飞识别节点-->
+	<node pkg="xfei_asr" type="speech_recognition" name="voiceRecognition" launch-prefix="xterm -e" respawn="false" />
+
+	<!--soundplay节点-->
+	<node pkg="sound_play" type="soundplay_node.py" name="sound_play" launch-prefix="xterm -e" />
+
+	<!--问题节点-->
+	<node pkg="speech" type="fmm_speech.py" name="fmm_speeech" launch-prefix="xterm -e" >
+		<remap from="/Find_My_Mate/control" to="find_my_mate/control"/>
+	</node>
+
+
+</launch>

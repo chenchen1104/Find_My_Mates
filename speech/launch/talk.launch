@@ -1,0 +1,7 @@
+<launch>
+
+
+    <node pkg="speech" name="talk" type="starttalk.py">
+    </node>
+
+</launch>
